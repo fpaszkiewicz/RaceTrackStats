@@ -1,0 +1,64 @@
+﻿namespace RaceTrackStats
+{
+    public class Statistics
+    {
+        public int WorstResult { get; private set; }
+        public int BestResult { get; private set; }
+        public int Points { get; private set; }
+
+        public int Count { get; private set; }
+
+        public int SmallPoints { get; private set; }
+
+        public float AvaregePoints { get
+            {
+                return this.Points * 1f / this.Count;
+            } }
+
+        public float AvaregePosition { get
+            {
+                return this.SmallPoints * 1f / this.Count; 
+            } }
+
+        public Statistics()
+        {
+            this.WorstResult = int.MaxValue;
+            this.BestResult = int.MinValue;
+            this.Points = 0;
+            this.Count = 0;
+            this.SmallPoints = 0;
+        }
+
+        public void AddPoints(int position, bool fastestLap = false)
+        {
+            this.Count++;
+            this.SmallPoints += position;
+            this.BestResult = Math.Max(position, BestResult);
+            this.WorstResult = Math.Min(position, WorstResult);
+
+            switch (position)
+            {
+                case 1:
+                    this.Points += 25;
+                    break;
+                case 2:
+                    this.Points += 18;
+                    break;
+                case 3:
+                    this.Points += 15;
+                    break;
+                case int result when result > 3 && result < 10:
+                    result -= 4;
+                    this.Points += 12 - result * 2;
+                    break;
+                case 10:
+                    this.Points += 1;
+                    break;
+            }
+            if (fastestLap && position < 11)
+            {
+                this.Points += 1;
+            }
+        }
+    }
+}
