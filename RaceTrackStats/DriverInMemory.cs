@@ -1,6 +1,6 @@
 ﻿namespace RaceTrackStats
 {
-    class DriverInMemory : DriverBase
+    public class DriverInMemory : DriverBase
     {
         public DriverInMemory(string name, string lastName, int number)
             : base(name, lastName, number)
@@ -26,7 +26,14 @@
             }
             else
             {
-                throw new Exception($"This string ({position}) is not an integer");
+                if(position == "DNF")
+                {
+                    this.results.Add(position);
+                }
+                else
+                {
+                    throw new Exception($"This string ({position}) is not an integer");
+                }
             }
         }
 
@@ -41,6 +48,10 @@
 
             foreach(var position in results)
             {
+                if(position == "DNF")
+                {
+                    continue;
+                }
                 statistics.AddPoints(int.Parse(position));
             }
 

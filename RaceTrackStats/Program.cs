@@ -14,7 +14,7 @@ DriverInMemory driver = new DriverInMemory("Carlos", "Sainz", 55);
 driver.AddResult(20);
 driver.AddResult(1);
 driver.AddResult(4);
-driver.AddResult(2);
+driver.AddResult("DNF");
 
 
 Statistics stats = driver.GetStatistics();

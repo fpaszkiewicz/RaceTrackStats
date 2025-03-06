@@ -22,8 +22,8 @@
 
         public Statistics()
         {
-            this.WorstResult = int.MaxValue;
-            this.BestResult = int.MinValue;
+            this.WorstResult = int.MinValue;
+            this.BestResult = int.MaxValue;
             this.Points = 0;
             this.Count = 0;
             this.SmallPoints = 0;
@@ -33,8 +33,8 @@
         {
             this.Count++;
             this.SmallPoints += position;
-            this.BestResult = Math.Max(position, BestResult);
-            this.WorstResult = Math.Min(position, WorstResult);
+            this.BestResult = Math.Min(position, BestResult);
+            this.WorstResult = Math.Max(position, WorstResult);
 
             switch (position)
             {
