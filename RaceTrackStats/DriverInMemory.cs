@@ -9,26 +9,34 @@
 
         private List<string> results = new List<string>();
 
+        public List<string> Results
+        {
+            get { return results; }
+        }
+
         public override event ScoreAddedDelegate ScoreAdded;
 
         public override void AddResult(string position)
         {
-            if (int.TryParse(position, out int result))
+
+            if (position.ToUpper() == "DNF")
             {
-                if(result > 0 && result <= 20)
-                {
-                    this.results.Add(position);
-                }
-                else
-                {
-                    throw new Exception($"This position ({position}) doesnt exist");
-                }
+                //acknowledging DNF as a result although it wont be taken into account in statistics
+                this.results.Add(position.ToUpper());
             }
             else
             {
-                if(position == "DNF")
+                if (int.TryParse(position, out int result))
                 {
-                    this.results.Add(position);
+                    //positions for now are limited to current f1 drivercount //to change
+                    if (result > 0 && result <= 20)
+                    {
+                        this.results.Add(position);
+                    }
+                    else
+                    {
+                        throw new Exception($"This position ({position}) doesnt exist");
+                    }
                 }
                 else
                 {
@@ -50,6 +58,7 @@
             {
                 if(position == "DNF")
                 {
+                    //ingoring DNF in statistics
                     continue;
                 }
                 statistics.AddPoints(int.Parse(position));

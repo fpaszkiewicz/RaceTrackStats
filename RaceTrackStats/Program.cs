@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using RaceTrackStats;
 using System.Text;
+using System.Text.Json;
 
 //Console.OutputEncoding = Encoding.UTF8; // Enable Unicode support
 //Console.ForegroundColor = ConsoleColor.Red;
@@ -25,3 +26,5 @@ Console.WriteLine(stats.SmallPoints);
 //Console.WriteLine(stats.WorstResult);
 //Console.WriteLine(stats.BestResult);
 //Console.WriteLine(stats.Points);
+string jsonString = JsonSerializer.Serialize(driver, new JsonSerializerOptions { WriteIndented = true });
+File.WriteAllText("driver.json", jsonString);

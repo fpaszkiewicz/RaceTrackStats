@@ -36,6 +36,7 @@
             this.BestResult = Math.Min(position, BestResult);
             this.WorstResult = Math.Max(position, WorstResult);
 
+            //adding score according to current f1 point system
             switch (position)
             {
                 case 1:

@@ -83,7 +83,5 @@ namespace RaceTrackStats.Tests
 
             Assert.AreEqual(5, result);
         }
-
-
     }
 }
