@@ -1,14 +1,14 @@
 ﻿
 namespace RaceTrackStats
 {
-    class DriverINFile : DriverBase
+    public class DriverInFile : DriverBase
     {
         private const string fileName = "results.txt";
-        public DriverINFile(string name, string lastName, int number) : base(name, lastName, number)
+        public DriverInFile(string name, string lastName, int number) : base(name, lastName, number)
         {
         }
 
-        public override event ScoreAddedDelegate ScoreAdded;
+        public override event ResultAddedDelegate ResultAdded;
 
         public override void AddResult(string position)
         {
@@ -18,8 +18,8 @@ namespace RaceTrackStats
                 //acknowledging DNF as a result although it wont be taken into account in statistics
                 using (var writer = File.AppendText(fileName))
                 {
-                    writer.WriteLine(position);
-                    ScoreAdded?.Invoke(this, new EventArgs());
+                    writer.WriteLine(position.ToUpper());
+                    ResultAdded?.Invoke(this, new EventArgs());
                 }
             }
             else
@@ -32,7 +32,7 @@ namespace RaceTrackStats
                         using (var writer = File.AppendText(fileName))
                         {
                             writer.WriteLine(position);
-                            ScoreAdded?.Invoke(this, new EventArgs());
+                            ResultAdded?.Invoke(this, new EventArgs());
                         }
                     }
                     else

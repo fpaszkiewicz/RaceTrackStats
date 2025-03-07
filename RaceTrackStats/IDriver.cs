@@ -11,7 +11,7 @@ namespace RaceTrackStats
 
         public void AddResult(int position);
 
-        public event ScoreAddedDelegate ScoreAdded;
+        public event ResultAddedDelegate ResultAdded;
         public Statistics GetStatistics();
     }
 }

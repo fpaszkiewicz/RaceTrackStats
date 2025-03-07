@@ -1,30 +1,55 @@
-﻿// See https://aka.ms/new-console-template for more information
-using RaceTrackStats;
-using System.Text;
-using System.Text.Json;
+﻿using RaceTrackStats;
 
-//Console.OutputEncoding = Encoding.UTF8; // Enable Unicode support
-//Console.ForegroundColor = ConsoleColor.Red;
-//Console.Write("●"); // Unicode for a solid circle
-//Console.ResetColor();
-//Console.WriteLine();
+var response = "";
+DriverInFile driver = new DriverInFile("Carlos", "Sainz", 55);
+driver.ResultAdded += DriverResultAdded;
 
-DriverInMemory driver = new DriverInMemory("Carlos", "Sainz", 55);
-//Console.WriteLine($"Drivers name: {driver.Name} {driver.LastName} and his number is {driver.Number}");
+void DriverResultAdded(object sender, EventArgs args)
+{
+    Console.WriteLine("Dodano wynik.");
+}
 
-driver.AddResult(20);
-driver.AddResult(1);
-driver.AddResult(4);
-driver.AddResult("DNF");
+Console.WriteLine("Witaj w programie do analizy wyników kierowców");
+Console.WriteLine("==============================================");
+Console.WriteLine();
 
+while (true)
+{
+    Console.WriteLine("Wprowadz wynik, lub wybierz 'Q' aby przejść do podsumowania");
+    response = Console.ReadLine();
+    if(response == "q" || response == "Q")
+    {
+        break;
+    }
+    try
+    {
+        driver.AddResult(response);
+    }
+    catch(Exception exc)
+    {
+        Console.WriteLine();
+        Console.WriteLine(exc.Message);
+    }
 
-Statistics stats = driver.GetStatistics();
+    Console.WriteLine();
+}
 
-//Console.WriteLine(stats.AvaregePoints);
-Console.WriteLine(stats.AvaregePosition);
-Console.WriteLine(stats.SmallPoints);
-//Console.WriteLine(stats.WorstResult);
-//Console.WriteLine(stats.BestResult);
-//Console.WriteLine(stats.Points);
-string jsonString = JsonSerializer.Serialize(driver, new JsonSerializerOptions { WriteIndented = true });
-File.WriteAllText("driver.json", jsonString);
+Console.Clear();
+Console.WriteLine($"Podsumowanie dla kierowcy {driver.Name} {driver.LastName} {driver.Number}");
+Console.WriteLine("=========================================");
+Console.WriteLine();
+
+Statistics result;
+try
+{
+    result = driver.GetStatistics();
+
+    Console.WriteLine($"Punkty: {result.Points}");
+    Console.WriteLine($"Średnie zdobywane Punkty: {string.Format("{0:F2}", result.AvaregePoints)}");
+    Console.WriteLine($"Średnie pozycja: {string.Format("{0:F2}", result.AvaregePosition)}");
+}
+catch(Exception exc)
+{
+    Console.WriteLine();
+    Console.WriteLine(exc.Message);
+}

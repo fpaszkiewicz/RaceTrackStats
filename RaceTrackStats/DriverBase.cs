@@ -2,9 +2,9 @@
 {
     public abstract class DriverBase : IDriver
     {
-        public delegate void ScoreAddedDelegate(object sender, EventArgs args);
+        public delegate void ResultAddedDelegate(object sender, EventArgs args);
 
-        public abstract event ScoreAddedDelegate ScoreAdded;
+        public abstract event ResultAddedDelegate ResultAdded;
 
         public DriverBase(string name, string lastName, int number)
         {

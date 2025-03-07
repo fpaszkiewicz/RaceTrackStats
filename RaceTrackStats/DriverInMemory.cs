@@ -14,7 +14,7 @@
             get { return results; }
         }
 
-        public override event ScoreAddedDelegate ScoreAdded;
+        public override event ResultAddedDelegate ResultAdded;
 
         public override void AddResult(string position)
         {
@@ -23,6 +23,7 @@
             {
                 //acknowledging DNF as a result although it wont be taken into account in statistics
                 this.results.Add(position.ToUpper());
+                ResultAdded?.Invoke(this, new EventArgs());
             }
             else
             {
@@ -32,6 +33,7 @@
                     if (result > 0 && result <= 20)
                     {
                         this.results.Add(position);
+                        ResultAdded?.Invoke(this, new EventArgs());
                     }
                     else
                     {
