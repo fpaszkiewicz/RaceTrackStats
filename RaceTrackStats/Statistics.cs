@@ -29,6 +29,49 @@
             this.SmallPoints = 0;
         }
 
+        public Statistics(List<string> results)
+        {
+            this.WorstResult = int.MinValue;
+            this.BestResult = int.MaxValue;
+            this.Points = 0;
+            this.Count = 0;
+            this.SmallPoints = 0;
+
+            foreach(var result in results)
+            {
+                //ignoring dnf
+                if (result == "DNF")
+                {
+                    continue;
+                }
+                int position = int.Parse(result);
+                this.AddPoints(position);
+            }
+        }
+
+        public Statistics(List<DriverInMemory> TeamDrivers)
+        {
+            this.WorstResult = int.MinValue;
+            this.BestResult = int.MaxValue;
+            this.Points = 0;
+            this.Count = 0;
+            this.SmallPoints = 0;
+
+            foreach(var driver in TeamDrivers)
+            {
+                foreach (var result in driver.Results)
+                {
+                    //ignoring dnf
+                    if (result == "DNF")
+                    {
+                        continue;
+                    }
+                    int position = int.Parse(result);
+                    this.AddPoints(position);
+                }
+            }
+        }
+
         public void AddPoints(int position, bool fastestLap = false)
         {
             this.Count++;

@@ -54,17 +54,7 @@
 
         public override Statistics GetStatistics()
         {
-            var statistics = new Statistics();
-
-            foreach(var position in results)
-            {
-                if(position == "DNF")
-                {
-                    //ingoring DNF in statistics
-                    continue;
-                }
-                statistics.AddPoints(int.Parse(position));
-            }
+            var statistics = new Statistics(this.Results);
 
             return statistics;
         }
