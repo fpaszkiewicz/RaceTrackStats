@@ -6,15 +6,13 @@
 
         public abstract event ResultAddedDelegate ResultAdded;
 
-        public DriverBase(string name, string lastName, int number)
+        public DriverBase(string name, int number)
         {
             this.Name = name;
-            this.LastName = lastName;
             this.Number = number;
         }
 
         public string Name { get; private set; }
-        public string LastName { get; private set; }
         public int Number { get; private set; }
 
         public abstract void AddResult(string position);

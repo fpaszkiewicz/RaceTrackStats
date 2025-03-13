@@ -4,7 +4,7 @@ namespace RaceTrackStats
     public class DriverInFile : DriverBase
     {
         private const string fileName = "results.txt";
-        public DriverInFile(string name, string lastName, int number) : base(name, lastName, number)
+        public DriverInFile(string name, string lastName, int number) : base(name, number)
         {
         }
 
@@ -26,7 +26,8 @@ namespace RaceTrackStats
             {
                 if (int.TryParse(position, out int result))
                 {
-                    //positions for now are limited to current f1 drivercount //to change
+                    //positions for now are limited to current f1 drivercount 
+                    //TODO: change condition so it can have different values so they are dependent on grid number
                     if (result > 0 && result <= 20)
                     {
                         using (var writer = File.AppendText(fileName))

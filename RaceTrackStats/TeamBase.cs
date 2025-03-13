@@ -6,14 +6,11 @@ namespace RaceTrackStats
         public delegate void DriverAddedDelegate(object sender, EventArgs args);
 
         public abstract event DriverAddedDelegate DriverAdded;
-        protected TeamBase(string teamName, string livery )
+        protected TeamBase(string teamName)
         {
             this.TeamName = teamName;
-            this.LiveryColor = livery;
         }
         public string TeamName { get; private set; }
-
-        public string LiveryColor { get; private set; }
 
         public abstract void AddDriver(DriverInMemory driver);
 

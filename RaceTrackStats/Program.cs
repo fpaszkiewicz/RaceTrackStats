@@ -1,30 +1,25 @@
 ﻿using RaceTrackStats;
 
-TeamFormula Mclaren = new TeamFormula("Mclaren", "orange");
-Mclaren.AddResult("1", "Lando Noriss", 4);
-Mclaren.AddResult("2", "Oscar Piastri", 81);
-Mclaren.AddResult("5", "Lando Noriss", 4);
-Mclaren.AddResult("3", "Oscar Piastri", 81);
-Mclaren.AddResult("2", "Lando Noriss", 4);
-Mclaren.AddResult("1", "Oscar Piastri", 81);
-Mclaren.AddResult("3", "Lando Noriss", 4);
-Mclaren.AddResult("dnf", "Oscar Piastri", 81);
 
-var stats = Mclaren.GetStatistics();
+DataStorage dataStorage = new DataStorage();
+dataStorage.LoadData();
+Console.WriteLine("Witaj w programie do analizy wyników kierowców");
+Console.WriteLine("==============================================");
+Console.WriteLine("Wprowadz nazwę pliku z wynikami:");
+var response = Console.ReadLine();
 
-Console.WriteLine(stats.AvaregePosition);
-Console.WriteLine(stats.AvaregePoints);
-Console.WriteLine(stats.BestResult);
-Console.WriteLine(stats.WorstResult);
-
-foreach(var driver in Mclaren.TeamDrivers)
+try
 {
-    Console.WriteLine($"{driver.Name} {driver.LastName}");
+    dataStorage.AddResults(response);
+}
+catch(Exception exc)
+{
+    Console.WriteLine(exc.Message);
 }
 
-var amBesten = Mclaren.BestDriver();
+dataStorage.SaveData();
 
-Console.WriteLine($"{amBesten.Name} {amBesten.LastName}");
+
 //var response = "";
 //DriverInMemory driver = new DriverInMemory("Carlos", "Sainz", 55);
 //driver.ResultAdded += DriverResultAdded;
@@ -34,15 +29,13 @@ Console.WriteLine($"{amBesten.Name} {amBesten.LastName}");
 //    Console.WriteLine("Dodano wynik.");
 //}
 
-//Console.WriteLine("Witaj w programie do analizy wyników kierowców");
-//Console.WriteLine("==============================================");
 //Console.WriteLine();
 
 //while (true)
 //{
 //    Console.WriteLine("Wprowadz wynik, lub wybierz 'Q' aby przejść do podsumowania");
 //    response = Console.ReadLine();
-//    if(response == "q" || response == "Q")
+//    if (response == "q" || response == "Q")
 //    {
 //        break;
 //    }
@@ -50,7 +43,7 @@ Console.WriteLine($"{amBesten.Name} {amBesten.LastName}");
 //    {
 //        driver.AddResult(response);
 //    }
-//    catch(Exception exc)
+//    catch (Exception exc)
 //    {
 //        Console.WriteLine();
 //        Console.WriteLine(exc.Message);
@@ -73,8 +66,11 @@ Console.WriteLine($"{amBesten.Name} {amBesten.LastName}");
 //    Console.WriteLine($"Średnie zdobywane Punkty: {string.Format("{0:F2}", result.AvaregePoints)}");
 //    Console.WriteLine($"Średnie pozycja: {string.Format("{0:F2}", result.AvaregePosition)}");
 //}
-//catch(Exception exc)
+//catch (Exception exc)
 //{
 //    Console.WriteLine();
 //    Console.WriteLine(exc.Message);
 //}
+
+//Console.WriteLine("Press Enter to exit.");
+//Console.ReadLine();

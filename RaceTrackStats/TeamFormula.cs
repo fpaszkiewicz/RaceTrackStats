@@ -2,15 +2,16 @@
 {
     public class TeamFormula : TeamBase
     {
-        public TeamFormula(string teamName, string livery) 
-            : base(teamName, livery.ToLower())
+
+        public override event DriverAddedDelegate DriverAdded;
+
+        public TeamFormula(string teamName) 
+            : base(teamName)
         {
             
         }
 
         private List<DriverInMemory> teamDrivers = new List<DriverInMemory>();
-
-        public override event DriverAddedDelegate DriverAdded;
 
         public List<DriverInMemory> TeamDrivers { 
             get { return teamDrivers; } 
@@ -28,7 +29,7 @@
             return statistics;
         }
 
-        public override void AddResult(string position, string driverFullName, int number)
+        public override void AddResult(string position, string driverName, int number)
         {
             foreach(var driver in teamDrivers)
             {
@@ -42,8 +43,7 @@
             //if loop didnt find match function will create driver with given number and name to add result to
             //it may create drivers with same names but drivers during season may change teams
             //but results still needs to be recorded and saved
-            string[] fullNameInArr = driverFullName.Split(' ');
-            DriverInMemory newDriver = new DriverInMemory(fullNameInArr[0], fullNameInArr[1], number);
+            DriverInMemory newDriver = new DriverInMemory(driverName, number);
             newDriver.AddResult(position);
             this.AddDriver(newDriver);
         }
@@ -54,7 +54,7 @@
             {
                 if (teamDrivers.Count == 1)
                 {
-                    //if team have only one driver return this driver
+                    //if team have only one driver return that driver
                     return teamDrivers[0];
                 }
 

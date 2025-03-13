@@ -5,7 +5,6 @@ namespace RaceTrackStats
     interface IDriver
     {
         public string Name { get; }
-        public string LastName { get; }
         public int Number { get; }
         public void AddResult(string position);
 
